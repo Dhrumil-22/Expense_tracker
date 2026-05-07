@@ -1,11 +1,17 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LayoutDashboard, Receipt, BarChart3, Settings, LogOut, Wallet } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
@@ -57,7 +63,7 @@ const Sidebar = () => {
 
       <div className="p-6 border-t border-slate-100 dark:border-slate-800">
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="w-full flex items-center gap-4 px-6 py-4 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-2xl transition-all duration-300 group"
         >
           <LogOut size={22} className="group-hover:translate-x-1 transition-transform" />
